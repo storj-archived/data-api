@@ -1,4 +1,4 @@
-# storj-data-api
+# data-api
 
 The Data API needs to be the layer that our apps go through to get data from our various data stores in a clean and consistent way. This will allow us to change the format of data behind the Data API while continuing to deliver the data in the same format to consumers of the Data API. This also allows us to control authentication and access to the back end databases and keep that auth out of our apps.
 
