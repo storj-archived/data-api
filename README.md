@@ -1,16 +1,27 @@
+[![Build Status](https://img.shields.io/travis/Storj/data-api.svg?branch=master&style=flat-square)](https://travis-ci.org/Storj/data-api)
+[![Coverage Status](https://img.shields.io/coveralls/Storj/data-api.svg?style=flat-square)](https://coveralls.io/r/Storj/data-api)
+
 # data-api
 
 The Data API needs to be the layer that our apps go through to get data from our various data stores in a clean and consistent way. This will allow us to change the format of data behind the Data API while continuing to deliver the data in the same format to consumers of the Data API. This also allows us to control authentication and access to the back end databases and keep that auth out of our apps.
 
-## Backend Databases
+## Config
+
+This application uses the 'config' module, which allows fine grained control over your config for various environments. You can use .json or .js files that start with the environment name (NODE_ENV), or you can use local.json or local.js to override the config for your local machine. All configs inherit from default.js, so you do not have to duplicate values. local.* is loaded last, and overrides other configs. config/local.* is also in .gitignore, so it is an ideal place for storing sensitive info.
+
+## Backend Databases (Connectors)
+
+Data-api is designed to work with multiple backends. You can specify more than one of each type below.
 
 + MongoDB
 + Elasticsearch
++ Easily extensible to other sources
 
-## Data Consumers/Creators
+## Clients
 
-+ Stautsify - Writes reports to MongoDB
-+ Stats Generator - Pulls Stats from Data API and pushes to MongoDB and ES
+Client addresses and which methods they are allowed to call is configurable in... config!
+
++ Statusify - Writes reports to data-api
 + Audits? (not sure if this needs to pull data from here or the Storj API, or simply listen for events)
 + Accounting - Pulls stats and push accounting and payout data?
 + Data Publisher - Pull publishable stats and push to a publicly accessible place
@@ -20,37 +31,29 @@ The Data API needs to be the layer that our apps go through to get data from our
 ### Communication
 This should be implemented in JSON RPC
 
-### Authentication
+### Client Authentication
 Authentication should be done by signing a nonce with private key on every transaction. It should mirror how we do authentication between farmers and Statusify.
 
-We need to determine how to easily generate keys for new modules. We could drop in the module, which would create a key on the server side, (possibly have an admin user authorize the key creation with admin key) then move that key to the service.
+~~We need to determine how to easily generate keys for new modules. We could drop in the module, which would create a key on the server side, (possibly have an admin user authorize the key creation with admin key) then move that key to the service.~~
+
+We can generate keys and store them in the config/local.js of each system. This is in .gitignore.
 
 ### Request
 
 ```
 {
-  "method": "put",
+  "method": "report.put",
   "id": 1234567,
   "params": {
-    "service": "stat-generator",
-    "type": "uptime",
+    "address": "somefakeaddress",
     "message": "{\"farmer_id\": 12345, \"date_range\": { \"start\": \"startdatehere\", \"end\": \"enddatehere\" }, \"percent\": 99.999 }"
   },
   "timestamp": "2016-04-14T13:05:29-04:00",
   "signature": "siggoeshere"
 }
 ```
-
-+ auth(JSON) - This would be a JSON object containing authentication information
-  + This could be done in the header instead
-  + We need to discuss how to do auth to/from all of these microservices
-  + We should consider humans authenticating but also service accounts where automation is necessary
-+ service(STRING) - This is the name of the service that we're pushing data for
-  + Each service should have it's own module that is dynamically loaded from files in a directory
-  + Upon load of each service, the service is registered and exposed as an available service
-+ set_type(STRING)
-+ data_destination(STRING) ? Could allow the pushing service to determine where the data goes? Might simply leave this up to the data-api + message - This is the data that we're pushing
-+ message(JSON) - This is the data that we're pushing
++ address(STRING) - This is used to verify the signature
++ message(JSON STRING) - This is the data that we're pushing
 + method(STRING) - [get|put|list|status] (others?) This would let the data-api know if we want to pull or push data, or execute other methods
 
 ### Fields
@@ -65,77 +68,36 @@ We need to determine how to easily generate keys for new modules. We could drop 
 ### Methods
 | Name         | Arguments           | Returns            | Description                                            |
 | -------------|---------------------|--------------------|--------------------------------------------------------|
-| get          |                     | json_object | Get a dataset for a particular service.                |
-| put          |                     | response_code(int) | Submit data for a service of a particular type. |
-| list         |                     | response_code(int) | Submit data for a service of a particular type. |
-| status       |                     | response_code(int) | Submit data for a service of a particular type. |
+| report.put   |                     | JSON RPC formatted response | Submit a report. |
+| list         |                     | JSON RPC formatted response | List of available methods for the client |
+| status       |                     | JSON RPC formatted response | Status of the Data-api service |
 
 ### Params
 | Parameter    | Type             | Description                                      |
 | -------------|------------------|--------------------------------------------------|
-| service      | String           | Name of the service to interact with             |
-| type         | String           | Type of data point to put or get                 |
 | message      | JSON             | JSON to get or put                               |
 
-
-### Service Module
-A service module would be a folder containing the various files configuring a service.
-
 #### Directory Structure
-- data-api
-  - methods
+- data-api/
+  - methods/
     - list.js
     - status.js
-  - services
-    - ServiceName
-      - service.json - Config file describing the service
-      - types (models) - We should move the model from statusify to data-api and write through it so we don't have to maintain the model in more than one location
-      - methods
-        - get.js
-        - put.js
-        - list.js
-        - status.js
-
-#### Example
-
-##### service.json
-```
-{
-  "name": "Statusify",
-  "inputs": (need to identify authorized services that can push data to this service),
-  "outputs": {
-    "mongodb": {
-      "name: "Statusify MongoDB",
-      "uri": "mongodb://mymongo.host.com:bleh?ssl=true",
-      "options": {
-        "ssl": true
-      }
-    },
-    "elasticsearch": {
-      "name": "Production ELK Stack",
-      "uri": "es.storj.io",
-      "options": {
-        "ssl": true
-      }
-    }
-  },
-  "types": [{
-    "name": "report",
-    "description": "Report data received from farmers"
-  }],
-}
-```
+    - report/
+      - get.js
+      - put.js
+  - models/
+    - report
 
 ## Initial Implementation
-The initial implementation should include the following methods, services, and databases...
+The initial implementation should include the following methods, clients, and datastores...
 
 #### Methods
-+ get
-+ put
++ list
++ status
++ report.put
 
-#### Services
+#### Clients
 + Statusify
-+ stat-generator (needs a better name)
 
-#### Databases
+#### Datastores
 + MongoDB

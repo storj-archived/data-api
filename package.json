@@ -1,0 +1,58 @@
+{
+  "name": "data-api",
+  "version": "0.0.1",
+  "description": "Storj Data API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node index",
+    "test": "NODE_ENV=test PORT=3001 istanbul cover _mocha -- --recursive test/",
+    "lint": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Storj/data-api.git"
+  },
+  "authors": [
+    {
+      "name": "Philip Hutchins",
+      "email": "philip@storj.io"
+    },
+    {
+      "name": "Ian Patton",
+      "email": "ian.patton@gmail.com"
+    }
+  ],
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Storj/data-api/issues"
+  },
+  "homepage": "https://github.com/Storj/data-api#readme",
+  "dependencies": {
+    "async": "^1.5.2",
+    "bitcore-ecies": "^1.0.1",
+    "body-parser": "^1.15.0",
+    "config": "^1.19.0",
+    "cors": "^2.7.1",
+    "elasticsearch": "^11.0.1",
+    "express": "^4.13.4",
+    "json-stable-stringify": "^1.0.1",
+    "lodash": "^4.8.2",
+    "lodash-keyarrange": "^1.1.0",
+    "mongoose": "^4.4.11",
+    "node-uuid": "^1.4.7",
+    "winston": "^2.2.0"
+  },
+  "devDependencies": {
+    "bitcore-lib": "^0.13.14",
+    "bitcore-message": "^1.0.2",
+    "chai": "^3.5.0",
+    "coveralls": "^2.11.9",
+    "eslint": "1.8.0",
+    "eslint-config-defaults": "^7.0.0",
+    "eslint-plugin-filenames": "^0.2.0",
+    "istanbul": "^0.4.2",
+    "mocha": "^2.4.5",
+    "supertest": "^1.2.0"
+  },
+  "engine": "node >= 5.9.0"
+}
