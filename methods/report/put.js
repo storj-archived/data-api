@@ -20,17 +20,25 @@ module.exports = (req, res) => {
   } catch (e) {
     return handleError(req, res, e);
   }
+
   report.requestID = req.body.id;
   report.save((err) => {
     if (err) {
-      return handleError(req, res, err);
+      handleError(req, res, err);
     } else {
-      res.send({
-        id: req.body.id,
-        error: null,
-        result: report
+      log.debug('Saved report in mongo');
+      report.createInElasticSearch(function createInElasticSearch(err2) {
+        if (err2) {
+          return handleError(req, res, err2);
+        } else {
+          res.send({
+            id: req.body.id,
+            error: null,
+            result: report
+          });
+        }
+        log.profile(`[${req.body.id}] method: ${req.body.method}`);
       });
     }
-    log.profile(`[${req.body.id}] method: ${req.body.method}`);
   });
 };

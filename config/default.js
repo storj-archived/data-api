@@ -21,7 +21,8 @@ const config = {
     elasticsearch: {
       type: 'elasticsearch',
       host: 'http://localhost:9200',
-      apiVersion: '2.2'
+      apiVersion: '2.2',
+      schemas: ['report']
     }
   },
   clients: {
@@ -30,7 +31,8 @@ const config = {
   methods: {
     list: true,
     status: true,
-    'report.put': ['statusify']
+    'report.put': ['statusify'],
+    'report.get': []
   }
 };
 
