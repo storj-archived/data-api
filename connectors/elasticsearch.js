@@ -5,10 +5,18 @@ const elasticsearch = require('elasticsearch');
 
 const ElasticSearch = function ElasticSearch(options) {
   options.log = function Logger() {
-    this.error = log.warn;
-    this.warning = log.info;
-    this.info = log.debug;
-    this.debug = log.debug;
+    this.error = (message, meta) => {
+      log.warn(`ElasticSearch: ${message} ${meta && JSON.stringify(meta) || ''}`);
+    };
+    this.warning = (message, meta) => {
+      log.info(`ElasticSearch: ${message} ${meta && JSON.stringify(meta) || ''}`);
+    };
+    this.info = (message, meta) => {
+      log.debug(`ElasticSearch: ${message} ${meta && JSON.stringify(meta) || ''}`);
+    };
+    this.debug = (message, meta) => {
+      log.debug(`ElasticSearch: ${message} ${meta && JSON.stringify(meta) || ''}`);
+    };
     this.trace = function () {};
   };
   this.client = new elasticsearch.Client(options);

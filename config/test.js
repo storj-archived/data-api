@@ -1,5 +1,5 @@
 module.exports = {
   log: {
-    level: 'debug'
+    level: 'error'
   }
 };

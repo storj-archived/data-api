@@ -15,7 +15,9 @@ const clientMethods = require('./lib/clientMethods');
 app.post('/', (req, res) => {
   if (req.body && req.body.id && req.body.method && registry.methods[req.body.method]) {
     log.profile(`[${req.body.id}] method: ${req.body.method}`);
-    const methods = clientMethods(req.body.params.address);
+    const client = clientMethods(req.body.params.address).client;
+    log.info(`[${req.body.id}] method: ${req.body.method} client: ${client}`);
+    const methods = clientMethods(req.body.params.address).methods;
     if (methods.indexOf(req.body.method) > -1) {
       checkSig(req, res, () => {
         registry.methods[req.body.method](req, res);

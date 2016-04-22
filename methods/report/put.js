@@ -3,13 +3,13 @@
 const log = require('../../lib/logger');
 
 const handleError = (req, res, err) => {
-  log.warn(`[request: ${req.body.id}] method: ${req.body.method} error: ${err.message}"`);
+  log.warn(`[${req.body.id}] method: ${req.body.method} error: ${err.message}"`);
   res.status(500).send({
     id: req.body.id,
     error: 'Error saving report',
     result: null
   });
-  log.profile(`[request: ${req.body.id}] method: ${req.body.method}`);
+  log.profile(`[${req.body.id}] method: ${req.body.method}`);
 };
 
 module.exports = (req, res) => {
@@ -31,6 +31,6 @@ module.exports = (req, res) => {
         result: report
       });
     }
-    log.profile(`[request: ${req.body.id}] method: ${req.body.method}`);
+    log.profile(`[${req.body.id}] method: ${req.body.method}`);
   });
 };

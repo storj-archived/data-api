@@ -1,5 +1,6 @@
 // DEFAULTS
 // override this in `${environment}.js` or local.js
+// see https://github.com/lorenwest/node-config
 
 const config = {
   PORT: process.env.PORT || 3000,
