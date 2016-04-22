@@ -1,28 +1,16 @@
-FROM ubuntu:trusty
+FROM node:5
 MAINTAINER Ian Patton <ian.patton@gmail.com>
 
-RUN apt-get update && \
-    apt-get install -yq \
-      curl \
-      wget \
-      git-core \
-      g++ \
-      libssl-dev \
-      libxml2-dev \
-      apt-transport-https \
-      lsb-release \
-      build-essential \
-      python-all
+RUN useradd -ms /bin/bash node
+RUN mkdir -p /usr/src/app
+RUN chown -R node /usr/src/app
 
-RUN git clone https://github.com/creationix/nvm.git /.nvm
-RUN echo ". /.nvm/nvm.sh" >> /etc/bash.bashrc
-RUN . /.nvm/nvm.sh && nvm install v5 && nvm use v5 && nvm alias default v5
+USER node
+WORKDIR /usr/src/app
 
-# Bundle app source
-COPY . /app
-# Install app dependencies
-RUN . /.nvm/nvm.sh && nvm use default && cd /app && npm install --production
+COPY . /usr/src/app/
+RUN npm install
 
-EXPOSE 3000
+EXPOSE 9000
 
-CMD cd /app && . /.nvm/nvm.sh && nvm use default && node index
+CMD [ "npm", "start" ]

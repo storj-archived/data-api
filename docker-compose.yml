@@ -1,0 +1,15 @@
+db:
+  image: mongo:3.2
+  expose:
+    - "27017"
+  ports:
+    - "27017:27017"
+  command: mongod --smallfiles --replSet "test"
+es:
+  image: elasticsearch:2.1
+  expose:
+    - "9200"
+    - "9300"
+  ports:
+    - "9200:9200"
+    - "9300:9300"
