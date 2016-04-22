@@ -81,21 +81,68 @@ describe('Data API', () => {
       });
   });
 
-  it('should process method: report.put', (done) => {
-    request(server.app)
-      .post('/')
-      .send({
-        method: 'report.put',
-        id: uuid.v4(),
-        params: {}
-      })
-      .set('Accept', 'application/json')
-      .end((err, res) => {
-        expect(err).to.equal(null);
-        expect(res.body.error).to.not.exist;
-        expect(res.body.result).to.exist;
-        done();
-      });
-  });
+  describe('Protected Methods', () => {
 
+    before((cb) => {
+      cb();
+    });
+
+    after((cb) => {
+      cb();
+    });
+
+    it('should not process method: report.put without an accepted address', (done) => {
+      request(server.app)
+        .post('/')
+        .send({
+          method: 'report.put',
+          id: uuid.v4(),
+          params: {}
+        })
+        .set('Accept', 'application/json')
+        .end((err, res) => {
+          expect(err).to.equal(null);
+          expect(res.body.error).to.exist;
+          expect(res.body.result).to.not.exist;
+          done();
+        });
+    });
+
+    it('should process method: report.put with an accepted address', (done) => {
+      request(server.app)
+        .post('/')
+        .send({
+          method: 'report.put',
+          id: uuid.v4(),
+          params: {
+            address: 'somefakeaddress',
+            message: JSON.stringify({
+              storage: {
+                free: 5,
+                used: 5
+              },
+              bandwidth: {
+                upload: 5,
+                download: 5
+              },
+              contact: {
+                protocol: 'https',
+                nodeID: 'somefakeid',
+                address: '127.0.0.1',
+                port: 5000
+              },
+              timestamp: Date.now(),
+              payment: 'ijwfeijsefkjsdfkwekfmwkefwef'
+            })
+          }
+        })
+        .set('Accept', 'application/json')
+        .end((err, res) => {
+          expect(err).to.equal(null);
+          expect(res.body.error).to.not.exist;
+          expect(res.body.result).to.exist;
+          done();
+        });
+    });
+  });
 });

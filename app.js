@@ -14,11 +14,11 @@ const clientMethods = require('./lib/clientMethods');
 app.post('/', (req, res) => {
   if (req.body && req.body.id && req.body.method && registry.methods[req.body.method]) {
     log.profile(`[${req.body.id}] method: ${req.body.method}`);
-    const methods = clientMethods(req.body.pubkey);
+    const methods = clientMethods(req.body.params.address);
     if (methods.indexOf(req.body.method) > -1) {
       registry.methods[req.body.method](req, res);
     } else {
-      const errString = `client ${req.body.pubkey} not allowed to use ${req.body.method}`;
+      const errString = `client ${req.body.params.address} not allowed to use ${req.body.method}`;
       res.send({
         id: req.body.id,
         error: errString
