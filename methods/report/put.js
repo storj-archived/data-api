@@ -20,6 +20,7 @@ module.exports = (req, res) => {
   } catch (e) {
     return handleError(req, res, e);
   }
+  report.requestID = req.body.id;
   report.save((err) => {
     if (err) {
       return handleError(req, res, err);

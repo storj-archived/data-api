@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const Report = new Schema({
+  requestID: {type: String, required: true, unique: true},
   storage: {
     free: { type: Number, required: true },
     used: { type: Number, required: true }
@@ -19,7 +20,8 @@ const Report = new Schema({
     port: { type: Number, required: true }
   },
   timestamp: { type: Date, required: true, expires: '90d' },
-  payment: { type: String, required: true }
+  payment: { type: String, required: true },
+  signature: { type: String, required: true }
 });
 
 module.exports = Report;

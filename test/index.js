@@ -161,7 +161,8 @@ describe('Data API', () => {
               port: 5000
             },
             timestamp: Date.now(),
-            payment: 'ijwfeijsefkjsdfkwekfmwkefwef'
+            payment: 'ijwfeijsefkjsdfkwekfmwkefwef',
+            signature: 'signaturefromoriginator'
           }
         }
       }
