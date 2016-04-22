@@ -5,11 +5,11 @@ const elasticsearch = require('elasticsearch');
 
 const ElasticSearch = function ElasticSearch(options) {
   options.log = function Logger() {
-    this.error = log.error;
-    this.warning = log.warn;
-    this.info = log.info;
+    this.error = log.warn;
+    this.warning = log.info;
+    this.info = log.debug;
     this.debug = log.debug;
-    this.trace = log.error;
+    this.trace = function () {};
   };
   this.client = new elasticsearch.Client(options);
   this.config = options;

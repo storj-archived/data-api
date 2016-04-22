@@ -16,11 +16,11 @@ const config = {
       url: 'mongodb://localhost:27017/data-api',
       options: {},
       schemas: ['report']
+    },
+    elasticsearch: {
+      type: 'elasticsearch',
+      host: 'http://localhost:9200'
     }
-    // elasticsearch: {
-    //   type: 'elasticsearch',
-    //   host: 'http://localhost:9200'
-    // }
   },
   clients: {
     statusify: ['somefakeaddress']
