@@ -5,6 +5,7 @@ const registry = require('./lib/registry');
 const express = require('express');
 const bodyParser = require('body-parser');
 const log = require('./lib/logger');
+const checkSig = require('./lib/checkSig');
 
 const app = express();
 app.use(bodyParser.json({limit: config.limits.bodyParser}));
@@ -16,7 +17,9 @@ app.post('/', (req, res) => {
     log.profile(`[${req.body.id}] method: ${req.body.method}`);
     const methods = clientMethods(req.body.params.address);
     if (methods.indexOf(req.body.method) > -1) {
-      registry.methods[req.body.method](req, res);
+      checkSig(req, res, () => {
+        registry.methods[req.body.method](req, res);
+      });
     } else {
       const errString = `client ${req.body.params.address} not allowed to use ${req.body.method}`;
       res.send({

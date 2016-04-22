@@ -4,9 +4,9 @@ db:
     - "27017"
   ports:
     - "27017:27017"
-  command: mongod --smallfiles --replSet "test"
+  command: mongod --smallfiles
 es:
-  image: elasticsearch:2.1
+  image: elasticsearch:2.2
   expose:
     - "9200"
     - "9300"

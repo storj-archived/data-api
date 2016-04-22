@@ -46,10 +46,10 @@ We can generate keys and store them in the config/local.js of each system. This 
   "id": 1234567,
   "params": {
     "address": "somefakeaddress",
-    "message": "{\"farmer_id\": 12345, \"date_range\": { \"start\": \"startdatehere\", \"end\": \"enddatehere\" }, \"percent\": 99.999 }"
-  },
-  "timestamp": "2016-04-14T13:05:29-04:00",
-  "signature": "siggoeshere"
+    "message": "{\"farmer_id\": 12345, \"date_range\": { \"start\": \"startdatehere\", \"end\": \"enddatehere\" }, \"percent\": 99.999 }",
+    "timestamp": "2016-04-14T13:05:29-04:00",
+    "signature": "siggoeshere"
+  }
 }
 ```
 + address(STRING) - This is used to verify the signature
@@ -63,7 +63,7 @@ We can generate keys and store them in the config/local.js of each system. This 
 | id          | Int             | JSON RPC Call Id                                   |
 | params      | JSON Object     | JSON Object containing service related data        |
 | timestamp   | ISO8601 (String)| Timestamp marking the time of the request          |
-| signature   | String          | Signature on nonce                                 |
+| signature   | String          | Signature of (params - signature  )                |
 
 ### Methods
 | Name         | Arguments           | Returns            | Description                                            |

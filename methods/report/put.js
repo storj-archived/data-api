@@ -16,7 +16,7 @@ module.exports = (req, res) => {
   const Report = require('../../lib/models').report;
   let report;
   try {
-    report = new Report(JSON.parse(req.body.params.message));
+    report = new Report(req.body.params.message);
   } catch (e) {
     return handleError(req, res, e);
   }

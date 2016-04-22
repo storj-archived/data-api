@@ -19,7 +19,8 @@ const config = {
     },
     elasticsearch: {
       type: 'elasticsearch',
-      host: 'http://localhost:9200'
+      host: 'http://localhost:9200',
+      apiVersion: '2.2'
     }
   },
   clients: {
