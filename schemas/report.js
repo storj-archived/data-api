@@ -27,6 +27,13 @@ const Report = new Schema({
   signature: { type: String, required: true }
 });
 
+Report.statics.create = function create(data) {
+  const report = new this(data.params);
+  report.requestID = data.id;
+  log.debug(`Create report from ${JSON.stringify(report, null, 2)}`);
+  return report;
+};
+
 Report.methods.getElasticSearchClient = function getElasticSearchClient() {
   const registry = require('../lib/registry');
   let client = null;

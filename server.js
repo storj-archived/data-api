@@ -11,6 +11,7 @@ const start = (cb) => {
     if (err) {
       throw err;
     }
+    log.info(`Server listening on ${config.PORT}`);
     server = app.listen(config.PORT, cb);
   });
 };

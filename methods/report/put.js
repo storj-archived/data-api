@@ -3,7 +3,7 @@
 const log = require('../../lib/logger');
 
 const handleError = (req, res, err) => {
-  log.warn(`[${req.body.id}] method: ${req.body.method} error: ${err.message}"`);
+  log.warn(`[${req.body.id}] method: ${req.body.method} error: ${err.message} ${err.stack}"`);
   res.status(500).send({
     id: req.body.id,
     error: 'Error saving report',
@@ -16,7 +16,7 @@ module.exports = (req, res) => {
   const Report = require('../../lib/models').report;
   let report;
   try {
-    report = new Report(req.body.params.message);
+    report = Report.create(req.body.params.message);
   } catch (e) {
     return handleError(req, res, e);
   }
