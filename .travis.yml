@@ -5,5 +5,5 @@ services:
   - mongodb
   - elasticsearch
 before_install:
-  - curl -O https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-2.3.2.deb && sudo dpkg -i --force-confnew elasticsearch-2.3.2.deb && sudo service elasticsearch restart
+  - curl -O https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-2.2.2.deb && sudo dpkg -i --force-confnew elasticsearch-2.2.2.deb && sudo service elasticsearch restart
 after_script: istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
