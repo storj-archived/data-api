@@ -3,7 +3,7 @@
 const log = require('../../lib/logger');
 
 const handleError = (req, res, err) => {
-  log.warn(`[${req.body.id}] method: ${req.body.method} error: ${err.message} ${err.stack}"`);
+  log.warn(`[${req.body.id}] method: ${req.body.method} error: ${err.message} ${err.stack}`);
   res.status(500).send({
     id: req.body.id,
     error: 'Error saving report',

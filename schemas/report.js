@@ -50,11 +50,13 @@ Report.methods.getElasticSearchClient = function getElasticSearchClient() {
 Report.methods.createInElasticSearch = function createInElasticSearch(cb) {
   const client = this.getElasticSearchClient();
   const body = this.toJSON();
-  log.debug('Creating in ElasticSearch...', body._id);
+  const id = body._id.toString();
+  delete body._id;
+  log.debug('Creating in ElasticSearch...', id);
   client.create({
     index: 'data-api',
     type: 'report',
-    id: body._id.toString(),
+    id: id,
     body
   }, cb);
 };
@@ -62,11 +64,12 @@ Report.methods.createInElasticSearch = function createInElasticSearch(cb) {
 Report.methods.deleteInElasticSearch = function deleteInElasticSearch(cb) {
   const client = this.getElasticSearchClient();
   const body = this.toJSON();
+  const id = body._id.toString();
   log.debug('Deleting from ElasticSearch...');
   client.delete({
     index: 'data-api',
     type: 'report',
-    id: body._id.toString()
+    id: id
   }, cb);
 };
 
