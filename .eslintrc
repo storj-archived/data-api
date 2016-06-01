@@ -3,6 +3,7 @@
     "node": true,
     "mocha": true
   },
+  "esversion": 6,
   "extends": "defaults/configurations/walmart/es6-node",
   "rules": {
     "quotes": [2, "single"],
