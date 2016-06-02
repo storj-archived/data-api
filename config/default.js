@@ -9,7 +9,7 @@ const config = {
   },
   log: {
     timestamp: true,
-    level: 'debug'
+    level: 'info'
   },
   datastores: {
     mongodb: {
