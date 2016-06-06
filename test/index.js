@@ -57,6 +57,16 @@ describe('Data API', () => {
       });
   });
 
+  it('should respond with 200 OK when a GET request is senet to /', (done) => {
+    request(server.app)
+    .get('/')
+    .expect(200)
+    .end(function(err, res) {
+      if (err) return done(err);
+      done();
+    });
+  });
+
   it('should process method: list', (done) => {
     const testPOST = {
       method: 'list',
