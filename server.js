@@ -4,6 +4,7 @@ const config = require('config');
 const registry = require('./lib/registry');
 const app = require('./app');
 const log = require('./lib/logger');
+require('heapdump');
 let server;
 
 const start = (cb) => {
