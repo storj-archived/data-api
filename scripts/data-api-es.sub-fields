@@ -1,0 +1,19 @@
+curl -XPUT localhost:9200/data-api-old/report/_mapping -d '
+{
+    "report": {
+        "properties": {
+            "contact": {
+                "type":   "object",
+                "properties": {
+                        "nodeID": {
+                                "type": "string",
+                                "fields": {
+                                    "raw": { "type": "string", "index": "not_analyzed"  }
+                                }
+                        }
+                }
+            }
+        }
+    }
+}
+'
