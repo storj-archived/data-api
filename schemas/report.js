@@ -27,6 +27,19 @@ const Report = new Schema({
   signature: { type: String, required: true }
 });
 
+const DataAPIIndexTemplate = {
+  "string_fields" : {
+    "match" : "*",
+    "match_mapping_type" : "string",
+    "mapping" : {
+      "type" : "string", "index" : "analyzed", "omit_norms" : true,
+      "fields" : {
+        "raw" : {"type": "string", "index" : "not_analyzed", "ignore_above" : 256}
+      }
+    }
+  }
+};
+
 Report.statics.create = function create(data) {
   const report = new this(data.params);
   report.requestID = data.id;
@@ -45,6 +58,16 @@ Report.methods.getElasticSearchClient = function getElasticSearchClient() {
     }
   });
   return client;
+};
+
+Report.methods.createIndexTemplate = function createIndexTemplate(cb) {
+  const client = this.getElasticSearchClient();
+  log.debug('Creating index template for report');
+  client.indices.putTemplate({
+    name: 'report',
+    reate: true,
+    body: DataAPIIndexTemplate
+  }, cb);
 };
 
 Report.methods.createInElasticSearch = function createInElasticSearch(cb) {
