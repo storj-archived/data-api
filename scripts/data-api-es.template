@@ -1,0 +1,23 @@
+curl -XPUT localhost:9200/_template/data-api-raw -d '
+{
+  "template": "data-api*",
+  "mappings": {
+    "_default_": {
+      "dynamic_templates": [ {
+        "string_fields" : {
+          "match": "*",
+          "match_mapping_type": "string",
+          "mapping" : {
+            "type" : "string", "index" : "analyzed", "omit_norms" : true,
+            "fielddata" : { "format" : "disabled" },
+            "fields" : {
+              "raw" : {"type": "string", "index" : "not_analyzed", "ignore_above" : 256}
+            }
+          }
+        }
+      } ]
+    }
+  }
+}
+'
+
