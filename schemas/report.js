@@ -12,10 +12,6 @@ const Report = new Schema({
     free: { type: Number, required: true },
     used: { type: Number, required: true }
   },
-  bandwidth: {
-    upload: { type: Number, required: true },
-    download: { type: Number, required: true }
-  },
   contact: {
     protocol: { type: String, required: true },
     nodeID: { type: String, required: true },
