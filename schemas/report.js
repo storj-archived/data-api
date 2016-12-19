@@ -13,6 +13,8 @@ const Report = new Schema({
     used: { type: Number, required: true }
   },
   contact: {
+    userAgent: { type: String, required: true },
+    lastSeen: { type: Number, required: true },
     protocol: { type: String, required: true },
     nodeID: { type: String, required: true },
     address: { type: String, required: true },

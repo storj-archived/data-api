@@ -177,10 +177,6 @@ describe('Data API', () => {
               free: 5,
               used: 5
             },
-            bandwidth: {
-              upload: 5,
-              download: 5
-            },
             contact: {
               protocol: 'https',
               nodeID: 'somefakeid',
@@ -218,10 +214,6 @@ describe('Data API', () => {
             storage: {
               free: 5,
               used: 5
-            },
-            bandwidth: {
-              upload: 5,
-              download: 5
             },
             contact: {
               protocol: 'https',
@@ -262,10 +254,6 @@ describe('Data API', () => {
               storage: {
                 free: 5,
                 used: 5
-              },
-              bandwidth: {
-                upload: 5,
-                download: 5
               },
               contact: {
                 protocol: 'https',
