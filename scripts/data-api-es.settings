@@ -1,0 +1,1 @@
+curl -XPUT http://localhost:9200/data-api-*/_settings -d '{"number_of_replicas": 0}'
