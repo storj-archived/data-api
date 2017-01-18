@@ -3,6 +3,7 @@
 const log = require('../../lib/logger');
 
 const handleError = (req, res, err) => {
+  console.log(err)
   log.warn(`[${req.body.id}] method: ${req.body.method} error: ${err.message} ${err.stack}`);
   res.status(500).send({
     id: req.body.id,
@@ -18,6 +19,7 @@ module.exports = (req, res) => {
 
   try {
     report = Report.create(req.body.params.message);
+    console.log(report)
   } catch (e) {
     return handleError(req, res, e);
   }
