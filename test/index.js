@@ -249,7 +249,7 @@ describe('Data API', () => {
         params: {
           paymentAddress: Bitcore.crypto.Hash.sha256ripemd160(privateKey.publicKey.toBuffer()).toString('hex'),
           storageAllocation: 5,
-          storageUsed: 5
+          storageUsed: 5,
           contactNodeId: 'somefakeid',
           timestamp: Date.now(),
           paymentAddress: 'ijwfeijsefkjsdfkwekfmwkefwef',
