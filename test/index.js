@@ -247,25 +247,13 @@ describe('Data API', () => {
         method: 'report.put',
         id: uuid.v4(),
         params: {
-          address: Bitcore.crypto.Hash.sha256ripemd160(privateKey.publicKey.toBuffer()).toString('hex'),
-          message: {
-            id: uuid.v4(),
-            params: {
-              storage: {
-                free: 5,
-                used: 5
-              },
-              contact: {
-                protocol: 'https',
-                nodeID: 'somefakeid',
-                address: '127.0.0.1',
-                port: 5000
-              },
-              timestamp: Date.now(),
-              payment: 'ijwfeijsefkjsdfkwekfmwkefwef',
-              signature: 'signaturefromoriginator'
-            }
-          }
+          paymentAddress: Bitcore.crypto.Hash.sha256ripemd160(privateKey.publicKey.toBuffer()).toString('hex'),
+          storageAllocation: 5,
+          storageUsed: 5
+          contactNodeId: 'somefakeid',
+          timestamp: Date.now(),
+          paymentAddress: 'ijwfeijsefkjsdfkwekfmwkefwef',
+          signature: 'signaturefromoriginator'
         }
       }
 
