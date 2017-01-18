@@ -249,6 +249,7 @@ describe('Data API', () => {
         params: {
           address: Bitcore.crypto.Hash.sha256ripemd160(privateKey.publicKey.toBuffer()).toString('hex'),
           message: {
+            id: uuid.v4(),
             params: {
               storageAllocation: 5,
               storageUsed: 5,
