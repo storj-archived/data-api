@@ -1,6 +1,6 @@
 {
   "name": "data-api",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Storj Data API",
   "main": "server.js",
   "scripts": {
@@ -20,6 +20,10 @@
     {
       "name": "Ian Patton",
       "email": "ian.patton@gmail.com"
+    },
+    {
+      "name": "Gordon Hall",
+      "email": "gordon@storj.io"
     }
   ],
   "license": "AGPL-3.0",

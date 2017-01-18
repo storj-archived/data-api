@@ -8,20 +8,11 @@ const log = require('../lib/logger');
 
 const Report = new Schema({
   requestID: {type: String, required: true, unique: true},
-  storage: {
-    free: { type: Number, required: true },
-    used: { type: Number, required: true }
-  },
-  contact: {
-    userAgent: { type: String, required: true },
-    lastSeen: { type: Number, required: true },
-    protocol: { type: String, required: true },
-    nodeID: { type: String, required: true },
-    address: { type: String, required: true },
-    port: { type: Number, required: true }
-  },
+  storageAllocated: { type: Number, required: true },
+  storageUsed: { type: Number, required: true },
+  contactNodeId: { type: String, required: true },
   timestamp: { type: Date, required: true, expires: '90d' },
-  payment: { type: String, required: true },
+  paymentAddress: { type: String, required: true },
   signature: { type: String, required: true }
 });
 
