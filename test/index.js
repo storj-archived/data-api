@@ -251,7 +251,7 @@ describe('Data API', () => {
           message: {
             id: uuid.v4(),
             params: {
-              storageAllocation: 5,
+              storageAllocated: 5,
               storageUsed: 5,
               contactNodeId: 'somefakeid',
               timestamp: Date.now(),

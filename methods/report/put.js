@@ -15,16 +15,15 @@ const handleError = (req, res, err) => {
 module.exports = (req, res) => {
   const Report = require('../../lib/models').report;
   let report;
+
   try {
     report = Report.create(req.body.params.message);
-    console.log(report)
   } catch (e) {
     return handleError(req, res, e);
   }
-  console.log(report)
+
   report.requestID = req.body.id;
   report.save((err) => {
-    console.log(err)
     if (err) {
       handleError(req, res, err);
     } else {
