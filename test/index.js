@@ -249,12 +249,14 @@ describe('Data API', () => {
         params: {
           address: Bitcore.crypto.Hash.sha256ripemd160(privateKey.publicKey.toBuffer()).toString('hex'),
           message: {
-            storageAllocation: 5,
-            storageUsed: 5,
-            contactNodeId: 'somefakeid',
-            timestamp: Date.now(),
-            paymentAddress: 'ijwfeijsefkjsdfkwekfmwkefwef',
-            signature: 'signaturefromoriginator'
+            params: {
+              storageAllocation: 5,
+              storageUsed: 5,
+              contactNodeId: 'somefakeid',
+              timestamp: Date.now(),
+              paymentAddress: 'ijwfeijsefkjsdfkwekfmwkefwef',
+              signature: 'signaturefromoriginator'
+            }
           }
         }
       }
