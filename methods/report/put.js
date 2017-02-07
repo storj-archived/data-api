@@ -15,6 +15,7 @@ const handleError = (req, res, err) => {
 module.exports = (req, res) => {
   const Report = require('../../lib/models').report;
   let report;
+
   try {
     report = Report.create(req.body.params.message);
   } catch (e) {

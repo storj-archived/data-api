@@ -251,18 +251,11 @@ describe('Data API', () => {
           message: {
             id: uuid.v4(),
             params: {
-              storage: {
-                free: 5,
-                used: 5
-              },
-              contact: {
-                protocol: 'https',
-                nodeID: 'somefakeid',
-                address: '127.0.0.1',
-                port: 5000
-              },
+              storageAllocated: 5,
+              storageUsed: 5,
+              contactNodeId: 'somefakeid',
               timestamp: Date.now(),
-              payment: 'ijwfeijsefkjsdfkwekfmwkefwef',
+              paymentAddress: 'ijwfeijsefkjsdfkwekfmwkefwef',
               signature: 'signaturefromoriginator'
             }
           }
