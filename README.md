@@ -1,3 +1,5 @@
+**Notice: Development on this repository is currently on pause during our v3 rearchitecture. Please see [storj/storj](https://github.com/storj/storj) for ongoing v3 development.**
+
 [![Build Status](https://img.shields.io/travis/Storj/data-api.svg?branch=master&style=flat-square)](https://travis-ci.org/Storj/data-api)
 [![Coverage Status](https://img.shields.io/coveralls/Storj/data-api.svg?style=flat-square)](https://coveralls.io/r/Storj/data-api)
 [![GitHub license](https://img.shields.io/badge/license-AGPLv3-blue.svg?style=flat-square)](https://raw.githubusercontent.com/Storj/data-api/master/LICENSE)
